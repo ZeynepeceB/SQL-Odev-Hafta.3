@@ -1,0 +1,41 @@
+1. Soru
+SELECT SUM(total) AS "Toplam Fatura Tutarı"
+FROM invoice
+WHERE billing_country = 'USA'
+AND EXTRACT(YEAR FROM invoice_date) = 2009;
+
+#Tüm faturaların toplam tutarını hesaplamak için "SUM(total)" kullandık.
+#Sadece ABD'ye ait faturaları seçmek için "billing_country = 'USA'"
+#Tarihten yılı alıp 2009 olanları filtrelemek için"EXTRACT(YEAR FROM invoice_date)"kullandık.
+
+2. Soru
+SELECT 
+    track.track_id, 
+    track.name AS "Parça Adı",
+    track.album_id AS "Albüm ID",
+    track.genre_id AS "Tür ID",
+    playlist.name AS "Çalma Listesi Adı"
+FROM track
+JOIN playlisttrack ON track.track_id = playlisttrack.track_id
+JOIN playlist ON playlisttrack.playlist_id = playlist.playlist_id;
+
+#Track tablosunu playlisttrack ile eşleştirmek için "JOIN playlisttrack ON track.track_id = playlisttrack.track_id" dizinini kullandık.
+#Playlisttrack tablosunu playlist ile birleştirmek için "JOIN playlist ON playlisttrack.playlist_id = playlist.playlist_id" dizinini kullandık.
+#Sütunun adını okunabilir hale getirmek için "track.name AS "Parça Adı"dizinini kullandık.
+
+3. Soru
+SELECT 
+    track.name AS "Parça Adı",
+    artist.name AS "Sanatçı",
+    album.title AS "Albüm",
+    track.milliseconds AS "Parça Süresi (ms)"
+FROM track
+JOIN album ON track.album_id = album.album_id
+JOIN artist ON album.artist_id = artist.artist_id
+WHERE album.title = 'Let There Be Rock'
+ORDER BY track.milliseconds DESC;
+
+#Track tablosunu album ile birleştirmek için "JOIN album ON track.album_id = album.album_id" dizinini kullandık.
+#Album tablosunu artist ile birleştirmek için "JOIN artist ON album.artist_id = artist.artist_id" dizinini kullandık.
+#Sadece "Let There Be Rock" albümüne ait parçaları seçmek için "WHERE album.title = 'Let There Be Rock'" dizinini kullandık.
+#Parçaları süresine göre büyükten küçüğe sıralamak için " ORDER BY track.milliseconds DESC"dizinini kullandık.
